@@ -3,6 +3,7 @@
     "vector": "cpp",
     "iostream": "cpp",
     "ostream": "cpp",
-    "cstdlib": "cpp"
+    "cstdlib": "cpp",
+    "cmath": "cpp"
   }
 }
