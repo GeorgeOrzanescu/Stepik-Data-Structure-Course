@@ -13,7 +13,7 @@ The rand() function is used in C/C++
 */
 int generateRandomLayer()
 {
-    srand((unsigned)time(NULL));
+
     return rand() % 2;
 }
 
@@ -74,20 +74,26 @@ public:
 
     void insertNode(int);
     void displaySl();
+    bool searchNode(int);
 };
 
 int main()
 {
 
-    Node header(4, 1);
+    Node head(4, 1);
 
     SkipList sl;
 
     sl.insertNode(1);
     sl.insertNode(4);
     sl.insertNode(2);
+    sl.insertNode(11);
 
     sl.displaySl();
+
+    cout << sl.searchNode(3) << endl;
+    cout << sl.searchNode(11) << endl;
+
     return 0;
 }
 
@@ -111,21 +117,16 @@ void SkipList::insertNode(int value)
     if (x == NULL || x->value != value)
     {
         int newLayer = 0;
-        bool coinToss = true;
-        while (coinToss)
+        // has to be outside loop for rand to work properly
+        srand((unsigned)time(NULL));
+        for (int i = 0; i < LAYER_MAX; i++)
         {
             int randGen = generateRandomLayer();
-            cout << "randGen: " << randGen << endl;
             if (randGen < 1 && newLayer < LAYER_MAX)
             {
                 newLayer++;
             }
-            else if (randGen == 1)
-            {
-                coinToss = false;
-            }
         }
-        cout << newLayer;
 
         if (newLayer > layer)
         {
@@ -156,4 +157,18 @@ void SkipList::displaySl()
             cout << " - ";
     }
     cout << endl;
+}
+
+bool SkipList::searchNode(int value)
+{
+    Node *x = head;
+    for (int i = layer; i >= 0; i--)
+    {
+        while (x->next[i] != NULL && x->next[i]->value < value)
+        {
+            x = x->next[i];
+        }
+    }
+    x = x->next[0];
+    return (x != NULL) && x->value == value;
 }

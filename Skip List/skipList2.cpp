@@ -155,6 +155,7 @@ void skiplist::insert_element(int &value)
     if (x == NULL || x->value != value)
     {
         int lvl = random_level();
+        cout << lvl << endl;
         if (lvl > level)
         {
             for (int i = level + 1; i <= lvl; i++)
