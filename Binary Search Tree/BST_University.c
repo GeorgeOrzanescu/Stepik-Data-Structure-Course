@@ -68,10 +68,45 @@ node* insertNode(node* root,product p){
 
 void preoderTravers(node* root){ // ROOT --> LEFT --> RIGHT
     if(root != NULL){
-        printf("Code: %d Name: %s Price: %5.2f", root->data.code, root->data.name, root->data.price);
+        printf("Code: %d Name: %s Price: %5.2f \n", root->data.code, root->data.name, root->data.price);
         preoderTravers(root->left);
         preoderTravers(root->right);
     }
+}
+
+void inorderTravers(node* root){ // LEFT --> ROOT --> RIGHT
+    if(root != NULL){
+        inorderTravers(root->left);
+        printf("Code: %d Name: %s Price: %5.2f \n", root->data.code, root->data.name, root->data.price);
+        inorderTravers(root->right);
+    }
+}
+
+void dezalocation(node* root){
+    if(root != NULL){
+        dezalocation(root->left);
+        dezalocation(root->right);
+        free(root->data.name);
+        free(root);
+    }
+}
+
+node* search(node* root,int key){
+    if(root != NULL)
+    {  //  node searched is root
+        if(key == root->data.code){
+            return root;
+        }
+        else
+        {
+            if (key < root->data.code) { // if smaller than root go search left
+                    search(root->left, key);
+                }
+            else { search(root->right, key); } // else search on right side
+        }
+    }
+    else
+        return NULL;
 }
 
 int main(){
@@ -97,6 +132,8 @@ int main(){
     }
 
     preoderTravers(root);
-
+    // dezalocation(root);
+    node *searched = search(root, 33);
+    printf("Node: %s", searched->data.name);
     return 0;
 }
