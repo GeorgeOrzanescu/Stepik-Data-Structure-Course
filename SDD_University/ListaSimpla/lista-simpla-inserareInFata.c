@@ -66,12 +66,25 @@ nodeLs* deleteNode(char* name, nodeLs* nextNode) {
 }
 
 
+nodeLs* deleteList(nodeLs* listaSimpla) {
+    while (listaSimpla)
+    {
+        free(listaSimpla->data.name);
+        nodeLs* temp = listaSimpla;
+        listaSimpla = listaSimpla->next;
+        free(temp);
+    }
+    return NULL;
+}
+
 void printList(nodeLs* listaSimpla) {
     nodeLs* currentNode = listaSimpla;
+    if (currentNode == NULL) { printf("List is empty!"); }
     while (currentNode) {
         printf("%s %f\n", currentNode->data.name, currentNode->data.value);
         currentNode = currentNode->next;
     }
+
 }
 
 void main() {
@@ -91,6 +104,10 @@ void main() {
 
 
     listaSimpla = deleteNode("Bitcoin", listaSimpla);
+
+    printList(listaSimpla);
+
+    listaSimpla = deleteList(listaSimpla);
 
     printList(listaSimpla);
 }
