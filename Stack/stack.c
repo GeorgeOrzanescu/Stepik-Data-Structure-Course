@@ -9,7 +9,7 @@ With a Stack, the first element to come out is the last one to have gone in.
 
 Formally, a Stack is defined by the following functions:
 • push(element): Add element to the top of the Stack
-• top(): Look at the element at the top of the Stack
+• peakTop(): Look at the element at the top of the Stack
 • pop(): Remove the element at the top of the Stack
 
 */
